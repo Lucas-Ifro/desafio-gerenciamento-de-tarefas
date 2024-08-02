@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento de Tarefas</title>
+</head>
+<body>
+    <header>
+        <div>
+            <h1>Sistema de Gerenciamento de Tarefas</h1>
+        </div>
+    </header>
+    <main>
+        <div id="mensagem" style="display: none;"></div>
+        <div id="adicionarTarefa">
+            <form action="">
+                <div> Adicionar Tarefa</div>
+                <div>Atualizar atividade</div>
+
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome">
+
+                <label for="dataEntrega"></label>
+                <input type="date" name="" id="dataEntrega">
+
+                <input type="submit" value="Adicionar" id="cadastrarTarefa">
+                <input type="submit" value="atualizar" id="atuzaliarTarefa">
+            </form>
+        </div>
+
+        <!-- <div id="editarTarefa">
+            <div>Atualizar atividade</div>
+
+            <label for="nomePut">Nome:</label>
+            <input type="text" id="nomePut">
+
+            <label for="dataEntregaPut"></label>
+            <input type="date" name="" id="dataEntregaPut">
+
+            <input type="submit" value="atualizar" id="atuzaliarTarefa">
+            <input type="submit" value="Excluir" id="excluirTarefa">
+        </div> -->
+        <div>
+            <h2>quantidade de Tarefas: </h2>
+            <p id="quantidadeTarefas"></p>
+        </div>
+        <div id="tabelaTarefa"></div>
+
+
+    </main>
+    <footer>
+
+    </footer>
+    <script src="gerenciamento.js"></script>
+</body>
+</html>
