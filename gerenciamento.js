@@ -4,7 +4,7 @@ mensagem = document.querySelector('#mensagem')
 
 atuzaliarTarefa = document.querySelector('#atuzaliarTarefa')
 
-editarTarefa = document.querySelector('#editarTarefa')
+editar = document.querySelector('#editarTarefa')
 
 tabelaTarefa = document.querySelector('#tabelaTarefa')
 
@@ -13,8 +13,6 @@ cadastrarTarefa = document.querySelector('#cadastrarTarefa')
 nome = document.querySelector('#nome')
 
 dataEntrega = document.querySelector('#dataEntrega')
-
-atuzaliarTarefa = document.querySelector('#atuzaliarTarefa')
 
 tabelaTarefa = document.querySelector('#tabelaTarefa')
 
@@ -39,6 +37,11 @@ cadastrarTarefa.addEventListener('click', (e) => {
     renderQuantidadeTarefas()
     renderizarTabela()
     mostrarMensagem('cadastrada com sucesso!!!')
+})
+
+editar.addEventListener('click',(e) => {
+    e.preventDefault()
+    atuzaliarTarefaTable(0)
 })
 
 function renderizarTabela(){
@@ -75,4 +78,18 @@ function mostrarMensagem(texto){
     setTimeout(() => {
             mensagem.style.display = 'none'
     },3000)
+}
+
+function deletarTarefa(posicao){
+    tarefas.splice(tarefas.indexOf(posicao), 1);
+}
+
+function atuzaliarTarefaTable(posicao){
+    nome.value = tarefas[posicao].nome
+    dataEntrega.value = tarefas[posicao].dataEntrega
+}
+
+function editarTarefa(posicao){
+    tarefas[posicao].nome = nome
+    tarefas[posicao].dataEntrega = dataEntrega
 }
