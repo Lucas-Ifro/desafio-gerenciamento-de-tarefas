@@ -6,6 +6,12 @@ atuzaliarTarefa = document.querySelector('#atuzaliarTarefa')
 
 editar = document.querySelector('#editarTarefa')
 
+h1Atuzaliar = document.querySelector('#h1Atuzaliar')
+
+h1Adicionar = document.querySelector('#h1Adicionar')
+
+excluir = document.querySelector('#excluir')
+
 tabelaTarefa = document.querySelector('#tabelaTarefa')
 
 cadastrarTarefa = document.querySelector('#cadastrarTarefa')
@@ -20,6 +26,9 @@ quantidadeTarefas = document.querySelector('#quantidadeTarefas')
 
 let tarefas = []
 renderQuantidadeTarefas()
+atuzaliarTarefa.style.display = 'none'
+h1Atuzaliar.style.display = 'none'
+
 
 const addTarefa = (nome, dataEntrega) => {
     
@@ -36,16 +45,17 @@ cadastrarTarefa.addEventListener('click', (e) => {
     addTarefa(nome.value, dataEntrega.value)
     renderQuantidadeTarefas()
     renderizarTabela()
+    limparInput()
     mostrarMensagem('cadastrada com sucesso!!!')
 })
 
-editar.addEventListener('click',(e) => {
-    e.preventDefault()
-    atuzaliarTarefaTable(0)
-})
+function limparInput(){
+    nome.value = ''
+    dataEntrega.value = ''
+}
 
 function renderizarTabela(){
-    id = 0
+    id = -1
     tabelaTarefa.innerHTML = `
     <p>Tabela de Livros</p>
 
@@ -60,10 +70,11 @@ function renderizarTabela(){
             `<tr>
                 <td>${tarefas.nome}</td>
                 <td>${tarefas.dataEntrega}</td>
-                <td><input type="button" value="editar" id="editarTarefa"><td>
-                <td><input type="checkbox" id="Tarefa-${id++}"><td>
+                <td><input type="button" value="editar" id="${id++}" onclick="atuzaliarTarefaTable(${id})"><td>
+                <td><input type="checkbox" id="${id}"><td>
              </tr>`
-            ).join('')}
+
+            ).join('') }
     <table>`
 }
 
@@ -80,16 +91,59 @@ function mostrarMensagem(texto){
     },3000)
 }
 
-function deletarTarefa(posicao){
-    tarefas.splice(tarefas.indexOf(posicao), 1);
+excluir.addEventListener('click',(e) => {
+    e.preventDefault()
+    deletarTarefa()
+    renderizarTabela()
+    renderQuantidadeTarefas()
+})
+
+function deletarTarefa(){
+    let checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    let checkedIds = [];
+    
+    checkboxes.forEach(checkbox => {
+        if (checkbox.checked) {
+            checkedIds.push(parseInt(checkbox.id));
+        }
+    });
+
+    let contDecremento = 0
+    checkedIds.forEach((id) => {
+        tarefas.splice((id - contDecremento), 1);
+        contDecremento++
+    })
 }
 
+let idTarefa = null
 function atuzaliarTarefaTable(posicao){
+    idTarefa = posicao
     nome.value = tarefas[posicao].nome
     dataEntrega.value = tarefas[posicao].dataEntrega
+    cadastrarTarefa.style.display = 'none'
+    h1Adicionar.style.display = 'none'
+    h1Atuzaliar.style.display = 'block'
+    atuzaliarTarefa.style.display = 'inline-block'
+}
+
+atuzaliarTarefa.addEventListener('click',(e) => {
+    e.preventDefault()
+    editarTarefa(idTarefa)
+    renderizarTabela()
+    limparInput()
+    idTarefa = null
+    cadastrarTarefa.style.display = 'inline-block'
+    h1Adicionar.style.display = 'block'
+    atuzaliarTarefa.style.display = 'none'
+    h1Atuzaliar.style.display = 'none'
+
+})
+
+function inputChecked(){
+
 }
 
 function editarTarefa(posicao){
-    tarefas[posicao].nome = nome
-    tarefas[posicao].dataEntrega = dataEntrega
+    tarefas[posicao].nome = nome.value
+    tarefas[posicao].dataEntrega = dataEntrega.value
 }
