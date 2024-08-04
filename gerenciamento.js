@@ -1,5 +1,3 @@
-adicionarTarefa = document.querySelector('#adicionarTarefa')
-
 mensagem = document.querySelector('#mensagem')
 
 atuzaliarTarefa = document.querySelector('#atuzaliarTarefa')
@@ -25,7 +23,11 @@ tabelaTarefa = document.querySelector('#tabelaTarefa')
 quantidadeTarefas = document.querySelector('#quantidadeTarefas')
 
 let tarefas = []
+getTarefas()
 renderQuantidadeTarefas()
+if(tarefas.length > 0){
+    renderizarTabela()
+}
 atuzaliarTarefa.style.display = 'none'
 h1Atuzaliar.style.display = 'none'
 
@@ -38,6 +40,7 @@ const addTarefa = (nome, dataEntrega) => {
     }
 
     tarefas.push(tarefa)
+    setTarefas()
 }
 
 cadastrarTarefa.addEventListener('click', (e) => {
@@ -55,27 +58,28 @@ function limparInput(){
 }
 
 function renderizarTabela(){
+
     id = -1
     tabelaTarefa.innerHTML = `
-    <p>Tabela de Livros</p>
-
     <table>
-        <tr>
             <th>nome</th>
             <th>dataEntrega</th>
             <th>Editar</th>
             <th>Deletar</th>
-        <th>
         ${tarefas.map(tarefas => 
             `<tr>
                 <td>${tarefas.nome}</td>
                 <td>${tarefas.dataEntrega}</td>
-                <td><input type="button" value="editar" id="${id++}" onclick="atuzaliarTarefaTable(${id})"><td>
-                <td><input type="checkbox" id="${id}"><td>
+                <td><input type="button" value="editar" class="editar" id="${id++}" onclick="atuzaliarTarefaTable(${id})"></td>
+                <td><input type="checkbox" id="${id}"></td>
              </tr>`
 
             ).join('') }
     <table>`
+
+    if(tarefas.length <=0 ){
+        tabelaTarefa.innerHTML = ""
+    }
 }
 
 function renderQuantidadeTarefas(){
@@ -110,9 +114,9 @@ function deletarTarefa(){
 
     let contDecremento = 0
     checkedIds.forEach((id) => {
-        tarefas.splice((id - contDecremento), 1);
-        contDecremento++
+        tarefas.splice((id - contDecremento++), 1);
     })
+    setTarefas()
 }
 
 let idTarefa = null
@@ -139,11 +143,15 @@ atuzaliarTarefa.addEventListener('click',(e) => {
 
 })
 
-function inputChecked(){
-
-}
-
 function editarTarefa(posicao){
     tarefas[posicao].nome = nome.value
     tarefas[posicao].dataEntrega = dataEntrega.value
+}
+
+function getTarefas(){
+    tarefas = JSON.parse(localStorage.getItem('tarefas')) || []
+}
+
+function setTarefas(){
+    localStorage.setItem("tarefas",JSON.stringify(tarefas))
 }

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Gerenciamento de Tarefas</title>
 </head>
 <body>
@@ -12,43 +13,38 @@
         </div>
     </header>
     <main>
-        <div id="mensagem" style="display: none;"></div>
-        <div id="adicionarTarefa">
+        <div id="mensagem" style="display: block;"></div>
+        <div id="formTarefas">
             <form action="">
-                <div id="h1Adicionar"> Adicionar Tarefa</div>
-                <div id="h1Atuzaliar">Atualizar Tarefa</div>
+                <div id="h1Adicionar"><h2>Adicionar Tarefa</h2></div>
+                <div id="h1Atuzaliar"><h2>Atualizar Tarefa</h2></div>
 
                 <label for="nome">Nome:</label>
                 <input type="text" id="nome">
 
-                <label for="dataEntrega"></label>
+                <label for="dataEntrega">DataEntrega</label>
                 <input type="date" name="" id="dataEntrega">
 
                 <input type="submit" value="Adicionar" id="cadastrarTarefa">
                 <input type="submit" value="atualizar" id="atuzaliarTarefa">
             </form>
         </div>
-
-        <!-- <div id="editarTarefa">
-            <div>Atualizar atividade</div>
-
-            <label for="nomePut">Nome:</label>
-            <input type="text" id="nomePut">
-
-            <label for="dataEntregaPut"></label>
-            <input type="date" name="" id="dataEntregaPut">
-
-            <input type="submit" value="atualizar" id="atuzaliarTarefa">
-            <input type="submit" value="Excluir" id="excluirTarefa">
-        </div> -->
         <div>
-            <h2>quantidade de Tarefas: </h2>
-            <p id="quantidadeTarefas"></p>
+            <div class="quantidade">
+                <div class="quantidadeDelete">
+                    <div>
+                        <h2>Quantidade de Tarefas: </h2>
+                        <p id="quantidadeTarefas"></p>
+                    </div>
+                    <div><input type="button" value="excluir" id="excluir"></div>
+                </div>
+            </div>
+            <h2 class="titulo">Tabela de atividade</h2>
+            <div class="tabela">
+                <div id="tabelaTarefa"></div>
+            </div>
+
         </div>
-        <div id="tabelaTarefa"></div>
-        <div> <input type="button" value="excluir" id="excluir"></div>
-
-
     </main>
     <footer>
 
